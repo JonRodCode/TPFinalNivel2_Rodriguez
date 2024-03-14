@@ -15,6 +15,7 @@ namespace ventanaPrincipal
     public partial class Form1 : Form
     {
         List<articulo> listaArticulos;
+        tools tool = new tools();
         
         public Form1()
         {
@@ -24,7 +25,8 @@ namespace ventanaPrincipal
         private void Form1_Load(object sender, EventArgs e)
         {
             cargar();
-            ocultarTablas();
+            tool.ocultarTablas(dgvArticulos);
+            
         }
 
         private void cargar()
@@ -32,14 +34,6 @@ namespace ventanaPrincipal
             negocioArticulo negocio = new negocioArticulo();
             listaArticulos = negocio.listar();
             dgvArticulos.DataSource = listaArticulos;
-        }
-
-        private void ocultarTablas()
-        {
-            dgvArticulos.Columns["Id"].Visible = false;
-            dgvArticulos.Columns["Descripcion"].Visible = false;
-            dgvArticulos.Columns["Categoria"].Visible = false;
-            dgvArticulos.Columns["ImagenUrl"].Visible = false;
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -65,8 +59,31 @@ namespace ventanaPrincipal
 
             dgvArticulos.DataSource = null;
             dgvArticulos.DataSource = listaFiltrada;
-            
+            tool.ocultarTablas(dgvArticulos);
+        } //Listo
+
+        private void btnDetalles_Click(object sender, EventArgs e) //Listo
+        {
+            List<articulo> listaFiltrada = new List<articulo>();
+            try
+            {
+                for (int i = 0; i < dgvArticulos.SelectedRows.Count; i++)
+                {
+                    articulo art;
+                    art = (articulo)dgvArticulos.SelectedRows[i].DataBoundItem;
+                    listaFiltrada.Add(art);
+                }
+                detalles detalle = new detalles(listaFiltrada);
+                detalle.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
             
         }
+        //
+
     }
 }
