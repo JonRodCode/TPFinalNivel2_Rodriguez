@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 
-namespace helper
+namespace accesoDB
 {
     public class AccesoDatos
     {
@@ -28,6 +28,11 @@ namespace helper
             comando.CommandType = System.Data.CommandType.Text;
             comando.CommandText = consulta;
         }
+        public void setearParametro(string nombre, object valor)
+        {
+            comando.Parameters.AddWithValue(nombre, valor);
+        }
+        
         public void ejecutarLectura()
         {
             comando.Connection = conexion;
@@ -39,6 +44,20 @@ namespace helper
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+        }
+
+        public void ejecutarAccion()
+        {
+            comando.Connection = conexion;
+            try
+            {
+                conexion.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }
