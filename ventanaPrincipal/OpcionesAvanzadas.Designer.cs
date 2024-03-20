@@ -61,7 +61,7 @@
             this.dgvArticulosEliminados.RowTemplate.Height = 24;
             this.dgvArticulosEliminados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvArticulosEliminados.Size = new System.Drawing.Size(565, 333);
-            this.dgvArticulosEliminados.TabIndex = 1;
+            this.dgvArticulosEliminados.TabIndex = 4;
             // 
             // lblArticulosEliminados
             // 
@@ -81,7 +81,7 @@
             this.btnRestaurar.Location = new System.Drawing.Point(17, 151);
             this.btnRestaurar.Name = "btnRestaurar";
             this.btnRestaurar.Size = new System.Drawing.Size(140, 40);
-            this.btnRestaurar.TabIndex = 0;
+            this.btnRestaurar.TabIndex = 1;
             this.btnRestaurar.Text = "Restaurar";
             this.btnRestaurar.UseVisualStyleBackColor = true;
             this.btnRestaurar.Click += new System.EventHandler(this.btnRestaurar_Click);
@@ -93,7 +93,7 @@
             this.btnEliminar.Location = new System.Drawing.Point(17, 204);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(140, 40);
-            this.btnEliminar.TabIndex = 0;
+            this.btnEliminar.TabIndex = 2;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
@@ -105,7 +105,7 @@
             this.btnVolverAlMenu.Location = new System.Drawing.Point(17, 346);
             this.btnVolverAlMenu.Name = "btnVolverAlMenu";
             this.btnVolverAlMenu.Size = new System.Drawing.Size(140, 40);
-            this.btnVolverAlMenu.TabIndex = 0;
+            this.btnVolverAlMenu.TabIndex = 3;
             this.btnVolverAlMenu.Text = "Volver al Menú";
             this.btnVolverAlMenu.UseVisualStyleBackColor = true;
             this.btnVolverAlMenu.Click += new System.EventHandler(this.btnVolverAlMenu_Click);

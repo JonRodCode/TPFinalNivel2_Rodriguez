@@ -61,7 +61,7 @@
             this.dgvDetalles.RowTemplate.Height = 24;
             this.dgvDetalles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDetalles.Size = new System.Drawing.Size(776, 313);
-            this.dgvDetalles.TabIndex = 0;
+            this.dgvDetalles.TabIndex = 10;
             this.dgvDetalles.SelectionChanged += new System.EventHandler(this.dgvDetalles_SelectionChanged);
             // 
             // pbxImagen
@@ -118,7 +118,7 @@
             this.btnVolverAlMenu.Location = new System.Drawing.Point(809, 427);
             this.btnVolverAlMenu.Name = "btnVolverAlMenu";
             this.btnVolverAlMenu.Size = new System.Drawing.Size(288, 28);
-            this.btnVolverAlMenu.TabIndex = 7;
+            this.btnVolverAlMenu.TabIndex = 9;
             this.btnVolverAlMenu.Text = "Volver al Menú";
             this.btnVolverAlMenu.UseVisualStyleBackColor = true;
             this.btnVolverAlMenu.Click += new System.EventHandler(this.btnVolverAlMenu_Click);
@@ -197,7 +197,7 @@
             this.btnCargarAllArticulos.Location = new System.Drawing.Point(486, 407);
             this.btnCargarAllArticulos.Name = "btnCargarAllArticulos";
             this.btnCargarAllArticulos.Size = new System.Drawing.Size(143, 49);
-            this.btnCargarAllArticulos.TabIndex = 8;
+            this.btnCargarAllArticulos.TabIndex = 7;
             this.btnCargarAllArticulos.Text = "Cargar todos los articulos";
             this.btnCargarAllArticulos.UseVisualStyleBackColor = true;
             this.btnCargarAllArticulos.Click += new System.EventHandler(this.btnCargarAllArticulos_Click);
