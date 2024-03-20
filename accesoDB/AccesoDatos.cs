@@ -30,7 +30,14 @@ namespace accesoDB
         }
         public void setearParametro(string nombre, object valor)
         {
-            comando.Parameters.AddWithValue(nombre, valor);
+            try
+            {
+                comando.Parameters.AddWithValue(nombre, valor);
+            }
+            catch (Exception)
+            {
+
+            }
         }
         
         public void ejecutarLectura()

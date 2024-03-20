@@ -243,6 +243,9 @@
             this.Controls.Add(this.txtDescripcion);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.txtCodigo);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(703, 509);
+            this.MinimumSize = new System.Drawing.Size(703, 509);
             this.Name = "AltaArticulo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AltaArticulo";

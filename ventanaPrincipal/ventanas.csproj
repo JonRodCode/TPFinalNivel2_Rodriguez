@@ -74,6 +74,12 @@
     <Compile Include="detalles.Designer.cs">
       <DependentUpon>detalles.cs</DependentUpon>
     </Compile>
+    <Compile Include="OpcionesAvanzadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpcionesAvanzadas.Designer.cs">
+      <DependentUpon>OpcionesAvanzadas.cs</DependentUpon>
+    </Compile>
     <Compile Include="ventanaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="detalles.resx">
       <DependentUpon>detalles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpcionesAvanzadas.resx">
+      <DependentUpon>OpcionesAvanzadas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ventanaPrincipal.resx">
       <DependentUpon>ventanaPrincipal.cs</DependentUpon>

@@ -15,15 +15,22 @@ namespace negocio
     public class negocioArticulo
     {
         toolsDB toolDB = new toolsDB();
+
+        public string consultaLectura = "select A.Id, Codigo, Nombre, A.Descripcion, M.Descripcion as Marca, C.Descripcion as Categoria, ImagenUrl, Precio, IdMarca, IdCategoria from ARTICULOS A left join CATEGORIAS C ON A.IdCategoria = C.Id left join MARCAS M ON A.IdMarca = M.Id where not Codigo like '% /oculto\\'";
         public List<articulo> lista_articulos;
 
-        public List<articulo> listar()
+        public List<articulo> listar(string consulta)
+
+        //Retorna una lista de articulos consultada en la base de datos 
         {
             lista_articulos = new List<articulo>();
             AccesoDatos datos = new AccesoDatos();
+
+            if (consulta == "Default")
+                consulta = consultaLectura;
             try
             {
-                datos.setearConsulta("select A.Id,Codigo, Nombre, A.Descripcion, M.Descripcion as Marca, C.Descripcion as Categoria, ImagenUrl, Precio, A.IdMarca, A.IdCategoria from ARTICULOS A, MARCAS M, CATEGORIAS C where M.Id = A.IdMarca AND C.Id = A.Idcategoria AND not Nombre like '/oculto\\%'");
+                datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -31,6 +38,7 @@ namespace negocio
                     articulo.Id = (int)datos.Lector["Id"];
                     articulo.Codigo = (string)datos.Lector["Codigo"];
                     articulo.Nombre = (string)datos.Lector["Nombre"];
+
                     articulo.Descripcion = (string)datos.Lector["Descripcion"];
 
 
@@ -39,13 +47,15 @@ namespace negocio
                     marca.Descripcion = (string)datos.Lector["Marca"];
                     articulo.Marca = marca;
 
-
-                    categoria_marca categoria = new categoria_marca();
-                    categoria.Id = (int)datos.Lector["IdCategoria"];
-                    categoria.Descripcion = (string)datos.Lector["Categoria"];
-                    articulo.Categoria = categoria;
-
+                    if (!(datos.Lector["Categoria"] is DBNull))
+                    {
+                        categoria_marca categoria = new categoria_marca();
+                        categoria.Id = (int)datos.Lector["IdCategoria"];
+                        categoria.Descripcion = (string)datos.Lector["Categoria"];
+                        articulo.Categoria = categoria;
+                    }
                     articulo.ImagenUrl = (string)datos.Lector["ImagenUrl"];
+
                     articulo.Precio = (decimal)datos.Lector["Precio"];
 
                     lista_articulos.Add(articulo);
@@ -65,6 +75,8 @@ namespace negocio
         }
 
         public void agregarArticulo(articulo nuevo)
+
+        // Agrega un nuevo articulo a la base de datos
         {
             AccesoDatos datos = new AccesoDatos();
             string consulta;
@@ -88,6 +100,8 @@ namespace negocio
         }
 
         public void modificarArticulo(articulo modificado)
+
+        // Modifica un articulo de la base de datos
         {
             AccesoDatos datos = new AccesoDatos();
             string consulta;
@@ -112,15 +126,17 @@ namespace negocio
         }
 
         public void eliminarArticuloParaSiempre(articulo eliminado)
+
+        //Elimina permanentemente 1 articulo de la DB (Eliminacion fisica)
         {
             AccesoDatos datos = new AccesoDatos();
             string consulta;
             try
             {
                 consulta = "delete From ARTICULOS where id = @Id";
-                datos.setearParametro("@Id", eliminado.Id.ToString());
+                datos.setearParametro("@Id", eliminado.Id);
                 datos.setearConsulta(consulta);
-
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
@@ -129,16 +145,27 @@ namespace negocio
             }
             finally { datos.cerrarConexion();}
         }
+        public void eliminarArticulosParaSiempre(List<articulo> listaEliminados)
+
+        //Elimina permanentemente mas de 1 articulo de la DB (Eliminacion fisica)
+        {
+            foreach (articulo art in listaEliminados)
+            {
+                eliminarArticuloParaSiempre(art);
+            }
+        }
         public void eliminarArticulo(articulo eliminado)
+
+        //Elimina 1 articulo (Eliminacion logica)
         {
             AccesoDatos datos = new AccesoDatos();
             string consulta;
-            string nombre;
+            string codigo;
             try
             {
-                nombre = "/oculto\\" + eliminado.Nombre;
-                consulta = "update ARTICULOS set Nombre = @nombre where id = @Id";
-                datos.setearParametro("@nombre", nombre);
+                codigo = eliminado.Codigo + " /oculto\\";
+                consulta = "update ARTICULOS set codigo = @Codigo where id = @Id";
+                datos.setearParametro("@Codigo", codigo);
                 datos.setearParametro("@Id", eliminado.Id.ToString());
                 datos.setearConsulta(consulta);
                 datos.ejecutarAccion();
@@ -151,10 +178,45 @@ namespace negocio
             finally { datos.cerrarConexion(); }
         }
         public void eliminarArticulos(List<articulo> listaEliminados)
+
+        //Elimina mas de 1 articulo (Eliminacion logica)
         {
-            foreach(articulo art in listaEliminados)
+            foreach (articulo art in listaEliminados)
             {
                 eliminarArticulo(art);
+            }
+        }
+        
+        public void restaurarArticulo(articulo restaurado)
+
+        //  Restaura 1 articulo seleccionado (devuelve a la lista Principal)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            string consulta;
+            try
+            {
+                restaurado.Codigo = restaurado.Codigo.Replace(" /oculto\\", "");
+                consulta = consulta = "update ARTICULOS set Codigo = @Codigo where id = @Id";
+                datos.setearParametro("@Codigo", restaurado.Codigo);
+                datos.setearParametro("@Id", restaurado.Id);
+                datos.setearConsulta(consulta);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally { datos.cerrarConexion(); }
+        }
+
+        public void restaurarArticulos(List<articulo> listaRestaurados)
+
+        //  Restaura los articulos seleccionados (devuelve a la lista Principal)
+        {
+            foreach (articulo art in listaRestaurados)
+            {
+                restaurarArticulo(art);
             }
         }
     }
