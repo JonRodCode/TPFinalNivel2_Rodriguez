@@ -182,10 +182,16 @@ namespace ventanas
                     if (busquedaRealizada)
                     {
                         (listaDeBusqueda, busquedaRealizada) = getlist.busquedaAvanzada(cboCampo, cboCriterio, txtFiltro, listaDeBusqueda, listaFiltrada, busquedaRealizada);
-                        load.cargarDetalles(dgvDetalles, listaDeBusqueda, pbxImagen);
+                        if (listaDeBusqueda.Count > 0)
+                            load.cargarDetalles(dgvDetalles, listaDeBusqueda, pbxImagen);
+                        else
+                            load.limpiarBusqueda(txtFiltro, cboCriterio, cboCampo, dgvDetalles, listaFiltrada, pbxImagen, busquedaRealizada);
+                            
                     }
                     else
                         load.cargarDetalles(dgvDetalles, listaFiltrada, pbxImagen);
+
+
                 }
             }
             catch (Exception ex)
@@ -206,12 +212,7 @@ namespace ventanas
 
         // Limpia los 3 campos de busqueda.
         {
-            txtFiltro.Text = "";
-            cboCriterio.Items.Clear();
-            load.cargarBusquedaCbos(cboCampo);
-            txtFiltro.Enabled = false;
-            load.cargarDetalles(dgvDetalles, listaFiltrada, pbxImagen);
-            busquedaRealizada = false;
+            load.limpiarBusqueda(txtFiltro, cboCriterio, cboCampo, dgvDetalles, listaFiltrada, pbxImagen, busquedaRealizada);
         }
         private void btnBuscar_Click(object sender, EventArgs e)
 

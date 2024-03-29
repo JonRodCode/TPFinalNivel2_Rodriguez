@@ -128,5 +128,17 @@ namespace helper
             cboCampo.Items.Add("Url de imagen");
             cboCampo.Items.Add("Precio");
         }
+
+        public void limpiarBusqueda(TextBox txtFiltro,ComboBox cboCriterio, ComboBox cboCampo, DataGridView dgvDetalles, List<articulo> listaFiltrada, PictureBox pbxImagen, bool busquedaRealizada)
+        
+        // Limpia los campos de busqueda si se realizo una busqueda o si la lista de busqueda se queda vacia
+        {
+            txtFiltro.Text = "";
+            cboCriterio.Items.Clear();
+            cargarBusquedaCbos(cboCampo);
+            txtFiltro.Enabled = false;
+            cargarDetalles(dgvDetalles, listaFiltrada, pbxImagen);
+            busquedaRealizada = false;
+        }
     }
 }
